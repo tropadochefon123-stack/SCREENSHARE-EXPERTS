@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScreenShare Experts - Cursos Profissionais de Segurança</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-red: #B22222;
+            --dark-red: #8B0000;
+            --black: #121212;
+            --dark-gray: #1E1E1E;
+            --light-gray: #F5F5F5;
+            --white: #FFFFFF;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--light-gray);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: rgba(18, 18, 18, 0.95);
+            padding: 1rem 5%;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary-red);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo h1 {
+            color: var(--white);
+            font-size: 1.8rem;
+        }
+
+        .logo span {
+            color: var(--primary-red);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-red);
+            background: rgba(178, 34, 34, 0.1);
+        }
+
+        .mobile-menu {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light-gray);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8)), 
+                        url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 5% 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            color: var(--light-gray);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary-red);
+            color: var(--white);
+            padding: 16px 40px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            border-color: var(--primary-red);
+            color: var(--primary-red);
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--white);
+            font-size: 2.5rem;
+        }
+
+        .about {
+            background: var(--dark-gray);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-text h3 {
+            color: var(--white);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Products */
+        .products {
+            background: var(--black);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--dark-gray);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 1px solid #333;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-red);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary-red);
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .product-image {
+            height: 200px;
+            background: var(--black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-red);
+            font-size: 3.5rem;
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-title {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-description {
+            color: #ccc;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .product-price {
+            color: var(--primary-red);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .buy-button {
+            width: 100%;
+            background: var(--primary-red);
+            color: var(--white);
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .buy-button:hover {
+            background: var(--dark-red);
+        }
+
+        /* Contact */
+        .contact {
+            background: var(--dark-gray);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info h3 {
+            color: var(--primary-red);
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--black);
+            border-radius: 10px;
+        }
+
+        .contact-icon {
+            background: var(--primary-red);
+            color: var(--white);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-form {
+            background: var(--black);
+            padding: 2.5rem;
+            border-radius: 15px;
+        }
+
+        .contact-form h3 {
+            color: var(--primary-red);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            background: var(--dark-gray);
+            color: var(--white);
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-red);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-button {
+            width: 100%;
+            background: var(--primary-red);
+            color: var(--white);
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background: var(--dark-red);
+        }
+
+        /* PIX Section */
+        .pix-section {
+            background: var(--black);
+            text-align: center;
+        }
+
+        .pix-box {
+            display: inline-block;
+            background: var(--dark-gray);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 2px solid var(--primary-red);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .pix-title {
+            color: var(--primary-red);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .pix-key {
+            background: var(--black);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            color: var(--primary-red);
+            font-weight: 700;
+        }
+
+        .copy-button {
+            background: var(--primary-red);
+            color: var(--white);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-button:hover {
+            background: var(--dark-red);
+        }
+
+        /* Payment Page */
+        .payment-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .payment-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: var(--dark-gray);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 3px solid var(--primary-red);
+            position: relative;
+        }
+
+        .close-payment {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-red);
+            color: var(--white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .payment-title {
+            color: var(--primary-red);
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .payment-info {
+            background: var(--black);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .payment-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .payment-qr {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--black);
+            border-radius: 15px;
+        }
+
+        .qrcode {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+            margin: 1rem 0;
+        }
+
+        .payment-instructions {
+            background: var(--black);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .instructions-list {
+            list-style-type: decimal;
+            padding-left: 1.5rem;
+        }
+
+        .instructions-list li {
+            margin-bottom: 0.8rem;
+        }
+
+        .payment-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .payment-buttons button {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .back-button {
+            background: #6c757d;
+            color: var(--white);
+        }
+
+        .confirm-button {
+            background: var(--primary-red);
+            color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            padding: 4rem 5%;
+            text-align: center;
+            border-top: 3px solid var(--primary-red);
+        }
+
+        .footer-logo {
+            color: var(--primary-red);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .copyright {
+            color: #888;
+            font-size: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--black);
+                flex-direction: column;
+                padding: 2rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+
+            .about-content,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-shield-alt" style="color: #B22222; font-size: 2rem;"></i>
+                <h1>ScreenShare <span>Experts</span></h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#products">Cursos</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+            <button class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h2>Cursos Profissionais e Especializados em ScreenShare</h2>
+            <p>Formamos teladores para pegarem hackers e bypass com técnicas avançadas e atualizadas do mercado.</p>
+            <a href="#products" class="cta-button">Ver Cursos</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <h2 class="section-title">Sobre Nós</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Especialistas em Segurança de ScreenShare</h3>
+                <p>Somos referência no mercado de cursos especializados em screenshare, com foco em formar profissionais capazes de identificar, prevenir e combater ataques de hackers e bypass em ambientes de compartilhamento de tela.</p>
+                <p>Nossa metodologia exclusiva combina teoria avançada com prática intensiva, preparando você para os desafios mais complexos do mercado de segurança digital.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Segurança Digital">
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <h2 class="section-title">Nossos Cursos</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-badge">Mais Popular</div>
+                <div class="product-image">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">CURSO ADVANCED</h3>
+                    <p class="product-description">Domine as técnicas mais avançadas de segurança em screenshare. Aprenda a identificar e neutralizar ameaças complexas.</p>
+                    <div class="product-price">R$ 100,00</div>
+                    <button class="buy-button" data-course="CURSO ADVANCED" data-price="100">
+                        Comprar Agora
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-badge">Recomendado</div>
+                <div class="product-image">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">CURSO ANTI BYPASS</h3>
+                    <p class="product-description">Especialize-se em técnicas para prevenir e combater bypass em sistemas de screenshare. Proteja seus ambientes com eficácia.</p>
+                    <div class="product-price">R$ 200,00</div>
+                    <button class="buy-button" data-course="CURSO ANTI BYPASS" data-price="200">
+                        Comprar Agora
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-badge">Exclusivo</div>
+                <div class="product-image">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">CURSO PRIVATE</h3>
+                    <p class="product-description">Acesso exclusivo a técnicas avançadas e mentorias personalizadas. O curso mais completo para profissionais de elite.</p>
+                    <div class="product-price">R$ 300,00</div>
+                    <button class="buy-button" data-course="CURSO PRIVATE" data-price="300">
+                        Comprar Agora
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">Entre em Contato</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Informações de Contato</h3>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h4>Email</h4>
+                        <p>sonacama01@gmail.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <h4>Horário de Atendimento</h4>
+                        <p>Segunda a Sexta: 9h às 18h</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Envie uma Mensagem</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Nome Completo</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensagem</label>
+                        <textarea id="message" class="form-control" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Enviar Mensagem</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- PIX Section -->
+    <section class="pix-section">
+        <div class="pix-box">
+            <h3 class="pix-title">Pagamento via PIX</h3>
+            <p>Para facilitar seu pagamento, utilize nossa chave PIX:</p>
+            <div class="pix-key">55503577809</div>
+            <button class="copy-button" onclick="copyPixKey()">
+                Copiar Chave PIX
+            </button>
+        </div>
+    </section>
+
+    <!-- Payment Page -->
+    <div id="payment-page" class="payment-page">
+        <div class="payment-container">
+            <button class="close-payment" onclick="closePaymentPage()">×</button>
+            
+            <div class="payment-header">
+                <h2 class="payment-title">Finalizar Compra</h2>
+                <p class="payment-subtitle">Realize o pagamento via PIX para confirmar sua compra</p>
+            </div>
+
+            <div class="payment-info">
+                <div class="payment-details">
+                    <div class="payment-detail">
+                        <span>Produto:</span>
+                        <span id="payment-course">-</span>
+                    </div>
+                    <div class="payment-detail">
+                        <span>Valor:</span>
+                        <span id="payment-price">-</span>
+                    </div>
+                    <div class="payment-detail">
+                        <span>Chave PIX:</span>
+                        <span>55503577809</span>
+                    </div>
+                </div>
+
+                <div class="payment-qr">
+                    <h3>Escaneie o QR Code para pagar</h3>
+                    <div id="payment-qrcode" class="qrcode">
+                        <div style="width: 200px; height: 200px; background: #f8f9fa; display: flex; align-items: center; justify-content: center; border-radius: 10px; flex-direction: column;">
+                            <i class="fas fa-qrcode" style="font-size: 4rem; color: #B22222; margin-bottom: 15px;"></i>
+                            <div style="text-align: center;">
+                                <div style="font-weight: 600; color: #333;">QR Code PIX</div>
+                                <div style="font-size: 0.9rem; color: #666;">55503577809</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="copy-button" onclick="copyPixKey()">
+                        Copiar Chave PIX
+                    </button>
+                </div>
+
+                <div class="payment-instructions">
+                    <h3>Instruções de Pagamento:</h3>
+                    <ol class="instructions-list">
+                        <li>Abra o aplicativo do seu banco</li>
+                        <li>Selecione a opção PIX</li>
+                        <li>Escaneie o QR Code ou cole a chave PIX</li>
+                        <li>Confirme o valor e realize o pagamento</li>
+                        <li>Clique em "Já Paguei" após a confirmação</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="payment-buttons">
+                <button class="back-button" onclick="closePaymentPage()">
+                    Voltar aos Cursos
+                </button>
+                <button class="confirm-button" onclick="confirmPayment()">
+                    Já Paguei
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">ScreenShare Experts</div>
+        <ul class="footer-links">
+            <li><a href="#home">Início</a></li>
+            <li><a href="#about">Sobre</a></li>
+            <li><a href="#products">Cursos</a></li>
+            <li><a href="#contact">Contato</a></li>
+        </ul>
+        <p class="copyright">&copy; 2024 ScreenShare Experts. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Configurações
+        const PIX_KEY = "55503577809";
+
+        // Elementos DOM
+        const paymentPage = document.getElementById('payment-page');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        // Funções Principais
+        function openPaymentPage(course, price) {
+            document.getElementById('payment-course').textContent = course;
+            document.getElementById('payment-price').textContent = `R$ ${price},00`;
+            paymentPage.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePaymentPage() {
+            paymentPage.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function confirmPayment() {
+            const course = document.getElementById('payment-course').textContent;
+            const price = document.getElementById('payment-price').textContent;
+            alert(`ABRANDO UM TICKET NA LOJA!\n\nCurso: ${course}\nValor: ${price}\n\nObrigado pela compra!`);
+            closePaymentPage();
+        }
+
+        function copyPixKey() {
+            navigator.clipboard.writeText(PIX_KEY).then(() => {
+                alert('Chave PIX copiada com sucesso!');
+            });
+        }
+
+        // Event Listeners
+        document.querySelectorAll('.buy-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const course = this.getAttribute('data-course');
+                const price = this.getAttribute('data-price');
+                openPaymentPage(course, price);
+            });
+        });
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Mensagem enviada com sucesso! Entraremos em contato em breve.');
+            this.reset();
+        });
+
+        // Fechar modal ao clicar fora
+        paymentPage.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePaymentPage();
+            }
+        });
+
+        // Fechar modal com ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePaymentPage();
+            }
+        });
+
+        // Inicialização
+        console.log('🚀 Site ScreenShare Experts carregado com sucesso!');
+    </script>
+</body>
+</html>
